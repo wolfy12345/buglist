@@ -23,6 +23,11 @@ class BugController extends Controller
     public function getIndex()
     {
         //
+        $user = \Auth::user();
+        if ($user->may('fix-bug')) {
+        } else {
+        }
+
         return view('bug.index');
     }
 
@@ -36,9 +41,36 @@ class BugController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function postCreate(Request $request)
     {
-        //
+        $this->validate($request, [
+            'url' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        $bug = new \App\Bug;
+        $bug->url = $request->url;
+        $bug->title = $request->title;
+        $bug->description = $request->description;
+        $bug->creator_user_id = $request->user()->id;
+        $bug->fixer_user_id = $request->fixer_user_id;
+
+        if ($request->hasFile('images')) {
+            $path = './Uploads/bugs/' . date('Ymd');
+            $suffix = $request->file('images')->getClientOriginalExtension();
+            $fileName = time() . rand(100000, 999999) . '.' . $suffix;
+            $request->file('images')->move($path, $fileName);
+
+            $bug->images = trim($path . '/' . $fileName, '.');
+        }
+
+        if ($bug->save()) {
+            return redirect('/bug/index')->with('info', '保存成功');
+        } else {
+            return back()->with('info', '保存失败');
+        }
+
     }
 
     /**

@@ -24,6 +24,9 @@
             <input type="password" name="password" placeholder="Password">
             <input type="password" name="password_confirmation" placeholder="PasswordConfirm">
 
+            <label><input type="radio" name="role" value="qa">测试</label>
+            <label><input type="radio" name="role" value="rd">开发</label>
+
             <div class="forgot">
                 <a href="#">forgot Password</a>
                 <input type="submit" value="Register" >
@@ -35,7 +38,7 @@
     </div>
 </div>
 <div class="copyright">
-    <p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a> - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></p>
+    <p>Copyright &copy; 2016.木头疙瘩</p>
 </div>
 
 

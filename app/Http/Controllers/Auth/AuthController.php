@@ -47,6 +47,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'role' => 'required'
         ]);
     }
 
@@ -58,10 +59,16 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $role = strtoupper($data['role']);
+        $role = \App\Role::where('name', $role)->first();
+        $user->attachRole($role);
+
+        return $user;
     }
 }

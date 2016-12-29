@@ -459,8 +459,7 @@
     </section>
 @endsection
 
-@section('js)
-    <script src="{{asset('assets/js/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+@section('js')
     <script src="{{asset('assets/js/vendor/datatables/ColReorderWithResize.js')}}"></script>
     <script src="{{asset('assets/js/vendor/datatables/colvis/dataTables.colVis.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/datatables/tabletools/ZeroClipboard.js')}}"></script>

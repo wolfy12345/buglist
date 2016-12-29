@@ -32,25 +32,26 @@
 
         <!-- tile body -->
         <div class="tile-body">
-            <form class="form-horizontal" role="form" method="post" action="/bug/create" enctype="application/x-www-form-urlencoded">
+            <form class="form-horizontal" role="form" method="post" action="{{url('/bug/create')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
                 <div class="form-group">
                     <label for="input01" class="col-sm-2 control-label">页面URL地址</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="input01">
+                        <input name="url" value="{{old('url')}}" type="text" class="form-control" id="input01">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input02" class="col-sm-2 control-label">标题</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="input02">
+                        <input name="title" value="{{old('title')}}" type="text" class="form-control" id="input02">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input03" class="col-sm-2 control-label">内容</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="input03" rows="6"></textarea>
+                        <textarea name="description" class="form-control" id="input03" rows="6">{{old('content')}}</textarea>
                     </div>
                 </div>
 
@@ -60,7 +61,7 @@
                         <div class="input-group">
                           <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
-                              <i class="fa fa-upload"></i><input type="file" multiple="">
+                              <i class="fa fa-upload"></i><input name="images" type="file">
                             </span>
                           </span>
                             <input type="text" class="form-control" readonly="">
@@ -71,7 +72,7 @@
                 <div class="form-group">
                     <label for="input05" class="col-sm-2 control-label">指定修复者</label>
                     <div class="col-sm-10">
-                        <select class="chosen-select chosen-transparent form-control" id="input05">
+                        <select name="fixer_user_id" class="chosen-select chosen-transparent form-control" id="input05">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
