@@ -389,6 +389,12 @@
                     <!-- col 12 -->
                     <div class="col-md-12">
 
+                        @if(session('info'))
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                {{session('info')}}
+                            </div>
+                        @endif
                         <!-- tile -->
                         @section('content')
                         @show

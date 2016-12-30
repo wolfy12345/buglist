@@ -73,11 +73,9 @@
                     <label for="input05" class="col-sm-2 control-label">指定修复者</label>
                     <div class="col-sm-10">
                         <select name="fixer_user_id" class="chosen-select chosen-transparent form-control" id="input05">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

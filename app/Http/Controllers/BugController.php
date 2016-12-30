@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -33,7 +34,9 @@ class BugController extends Controller
 
     public function getNew()
     {
-        return view('bug.new');
+        $users = User::get();
+
+        return view('bug.new', ['users' => $users]);
     }
 
     /**
