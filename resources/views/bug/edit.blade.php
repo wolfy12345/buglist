@@ -22,7 +22,7 @@
     <section class="tile color transparent-black">
         <!-- tile header -->
         <div class="tile-header">
-            <h1><strong>新建</strong> Bug</h1>
+            <h1><strong>编辑</strong> Bug</h1>
             <div class="controls">
                 <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                 <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -32,32 +32,37 @@
 
         <!-- tile body -->
         <div class="tile-body">
-            <form class="form-horizontal" role="form" method="post" action="{{url('/bug/create')}}" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form" method="post" action="{{url('/bug/update')}}" enctype="multipart/form-data">
                 {{csrf_field()}}
+                <input type="hidden" name="id" value="{{$bug->id}}">
                 <div class="form-group">
                     <label for="input01" class="col-sm-2 control-label">页面URL地址</label>
                     <div class="col-sm-10">
-                        <input name="url" value="{{old('url')}}" type="text" class="form-control" id="input01">
+                        <input name="url" value="{{$bug->url}}" type="text" class="form-control" id="input01">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input02" class="col-sm-2 control-label">标题</label>
                     <div class="col-sm-10">
-                        <input name="title" value="{{old('title')}}" type="text" class="form-control" id="input02">
+                        <input name="title" value="{{$bug->title}}" type="text" class="form-control" id="input02">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input03" class="col-sm-2 control-label">内容</label>
                     <div class="col-sm-10">
-                        <textarea name="description" class="form-control" id="input03" rows="6">{{old('description')}}</textarea>
+                        <textarea name="description" class="form-control" id="input03" rows="6">
+                            {{$bug->description}}
+                            --------------------------------我是分割线，不用管我，新内容继续往下添加即可-----------------------------------
+                        </textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input04" class="col-sm-2 control-label">图片</label>
                     <div class="col-sm-10">
+                        <img src="{{$bug->images}}" width="150" height="100" class="img-rounded" data-toggle="modal" data-target="#myModal">
                         <div class="input-group">
                           <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
@@ -75,8 +80,23 @@
                         <select name="fixer_user_id" class="chosen-select chosen-transparent form-control" id="input05">
                             <option value="0">请指定修复者</option>
                             @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                <option @if($user->id == $bug->fixer_user_id) selected="selected" @endif value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input100" class="col-sm-2 control-label">bug状态</label>
+                    <div class="col-sm-10">
+                        <select name="status" class="chosen-select chosen-transparent form-control" id="input100">
+                            @role('RD')
+                                <option @if($bug->status==2) selected="selected" @endif value="2">已修复bug</option>
+                            @endrole
+                            @role('QA')
+                                <option @if($bug->status==1) selected="selected" @endif value="1">重新激活bug</option>
+                                <option @if($bug->status==3) selected="selected" @endif value="3">关闭bug</option>
+                            @endrole
                         </select>
                     </div>
                 </div>
@@ -92,6 +112,8 @@
         <!-- /tile body -->
     </section>
 @endsection
+
+@include('bug.image_modal')
 
 @section('js')
 

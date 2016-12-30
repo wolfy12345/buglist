@@ -22,7 +22,7 @@
     <section class="tile color transparent-black">
         <!-- tile header -->
         <div class="tile-header">
-            <h1><strong>新建</strong> Bug</h1>
+            <h1><strong>编辑</strong> Bug</h1>
             <div class="controls">
                 <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                 <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -32,59 +32,60 @@
 
         <!-- tile body -->
         <div class="tile-body">
-            <form class="form-horizontal" role="form" method="post" action="{{url('/bug/create')}}" enctype="multipart/form-data">
+            <form class="form-horizontal" role="form">
                 {{csrf_field()}}
+                <input type="hidden" name="id" value="{{$bug->id}}">
                 <div class="form-group">
                     <label for="input01" class="col-sm-2 control-label">页面URL地址</label>
                     <div class="col-sm-10">
-                        <input name="url" value="{{old('url')}}" type="text" class="form-control" id="input01">
+                        <input readonly value="{{$bug->url}}" type="text" class="form-control" id="input01">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input02" class="col-sm-2 control-label">标题</label>
                     <div class="col-sm-10">
-                        <input name="title" value="{{old('title')}}" type="text" class="form-control" id="input02">
+                        <input readonly value="{{$bug->title}}" type="text" class="form-control" id="input02">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input03" class="col-sm-2 control-label">内容</label>
                     <div class="col-sm-10">
-                        <textarea name="description" class="form-control" id="input03" rows="6">{{old('description')}}</textarea>
+                        <textarea readonly class="form-control" id="input03" rows="6">
+                            {{$bug->description}}
+                        </textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input04" class="col-sm-2 control-label">图片</label>
                     <div class="col-sm-10">
-                        <div class="input-group">
-                          <span class="input-group-btn">
-                            <span class="btn btn-primary btn-file">
-                              <i class="fa fa-upload"></i><input name="images" type="file">
-                            </span>
-                          </span>
-                            <input type="text" class="form-control" readonly="">
-                        </div>
+                        <img src="{{$bug->images}}" width="150" height="100" class="img-rounded" data-toggle="modal" data-target="#myModal">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input05" class="col-sm-2 control-label">指定修复者</label>
                     <div class="col-sm-10">
-                        <select name="fixer_user_id" class="chosen-select chosen-transparent form-control" id="input05">
-                            <option value="0">请指定修复者</option>
+                        <select class="chosen-select chosen-transparent form-control" id="input05" readonly>
                             @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                @if($user->id == $bug->fixer_user_id)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group form-footer">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
+                <div class="form-group">
+                    <label for="input100" class="col-sm-2 control-label">bug状态</label>
+                    <div class="col-sm-10">
+                        <select class="chosen-select chosen-transparent form-control" id="input100">
+                            <option @if($bug->status==2) selected="selected" @endif value="2">已修复bug</option>
+                            <option @if($bug->status==1) selected="selected" @endif value="1">重新激活bug</option>
+                            <option @if($bug->status==3) selected="selected" @endif value="3">关闭bug</option>
+                        </select>
                     </div>
                 </div>
             </form>
@@ -92,6 +93,8 @@
         <!-- /tile body -->
     </section>
 @endsection
+
+@include('bug.image_modal')
 
 @section('js')
 
