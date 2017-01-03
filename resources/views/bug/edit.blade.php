@@ -52,8 +52,7 @@
                 <div class="form-group">
                     <label for="input03" class="col-sm-2 control-label">内容</label>
                     <div class="col-sm-10">
-                        <textarea name="description" class="form-control" id="input03" rows="6">
-                            {{$bug->description}}
+                        <textarea name="description" class="form-control" id="input03" rows="10">{{$bug->description}}
                             --------------------------------我是分割线，不用管我，新内容继续往下添加即可-----------------------------------
                         </textarea>
                     </div>
@@ -63,10 +62,11 @@
                     <label for="input04" class="col-sm-2 control-label">图片</label>
                     <div class="col-sm-10">
                         <img src="{{$bug->images}}" width="150" height="100" class="img-rounded" data-toggle="modal" data-target="#myModal">
+                        <span>点击图片可以查看大图</span>
                         <div class="input-group">
                           <span class="input-group-btn">
                             <span class="btn btn-primary btn-file">
-                              <i class="fa fa-upload"></i><input name="images" type="file">
+                              上传<input name="images" type="file">
                             </span>
                           </span>
                             <input type="text" class="form-control" readonly="">

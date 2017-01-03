@@ -20,7 +20,7 @@
     <section class="tile transparent">
         <!-- tile header -->
         <div class="tile-header transparent">
-            <h1><strong>BugList</strong> Table </h1>
+            <h1>无穷无尽的<strong>BUG</strong></h1>
             <div class="controls">
                 <button type="button" class="btn btn-primary margin-bottom-20" onclick="location.href='/bug/new'">
                     创建bug
@@ -40,6 +40,7 @@
                         <th class="sort-amount">标题</th>
                         <th class="sort-numeric">创建者</th>
                         <th class="sort-numeric">指定修复者</th>
+                        <th class="sort-numeric">bug状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -50,12 +51,27 @@
                                 {{$bug->url}}
                             </td>
                             <td>{{$bug->title}}</td>
-                            <td class="text-center">{{$bug->creator_user_id}}</td>
-                            <td class="text-center">{{$bug->fixer_user_id}}</td>
+                            <td class="text-center">{{$bug->creator->name}}</td>
+                            <td class="text-center">{{$bug->fixer->name}}</td>
+                            <td class="text-center">
+                                @if($bug->status==1)
+                                    激活
+                                @elseif($bug->status==2)
+                                    已修复
+                                @elseif($bug->status==3)
+                                    已关闭
+                                @endif
+                            </td>
                             <td>
-                                @role('RD')<a>指向我</a>|@endrole
-                                <a href="{{url('/bug/show/'.$bug->id)}}">查看</a>|
-                                <a href="{{url('/bug/edit/'.$bug->id)}}">修改</a>
+                                {{--@role('RD')<a class="btn btn-primary margin-bottom-20">指向我</a> @endrole--}}
+                                <a class="btn btn-primary margin-bottom-20" href="{{url('/bug/show/'.$bug->id)}}">查看</a>
+                                @role('RD')
+                                    @if($bug->status != 3)
+                                        <a class="btn btn-primary margin-bottom-20" href="{{url('/bug/edit/'.$bug->id)}}">修改</a>
+                                    @endif
+                                @else
+                                    <a class="btn btn-primary margin-bottom-20" href="{{url('/bug/edit/'.$bug->id)}}">修改</a>
+                                @endrole
                             </td>
                         </tr>
                     @endforeach
@@ -125,6 +141,7 @@
                 "aoColumns": [
                     null,
                     null,
+                    {"sType": 'string-case'},
                     {"sType": 'string-case'},
                     null,
                     null

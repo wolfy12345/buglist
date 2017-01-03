@@ -22,7 +22,7 @@
     <section class="tile color transparent-black">
         <!-- tile header -->
         <div class="tile-header">
-            <h1><strong>编辑</strong> Bug</h1>
+            <h1><strong>查看</strong> Bug</h1>
             <div class="controls">
                 <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                 <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -52,8 +52,7 @@
                 <div class="form-group">
                     <label for="input03" class="col-sm-2 control-label">内容</label>
                     <div class="col-sm-10">
-                        <textarea readonly class="form-control" id="input03" rows="6">
-                            {{$bug->description}}
+                        <textarea readonly class="form-control" id="input03" rows="10">{{$bug->description}}
                         </textarea>
                     </div>
                 </div>
@@ -62,30 +61,21 @@
                     <label for="input04" class="col-sm-2 control-label">图片</label>
                     <div class="col-sm-10">
                         <img src="{{$bug->images}}" width="150" height="100" class="img-rounded" data-toggle="modal" data-target="#myModal">
+                        <span>点击图片可以查看大图</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input05" class="col-sm-2 control-label">指定修复者</label>
                     <div class="col-sm-10">
-                        <select class="chosen-select chosen-transparent form-control" id="input05" readonly>
-                            @foreach($users as $user)
-                                @if($user->id == $bug->fixer_user_id)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endif
-                            @endforeach
-                        </select>
+                        <input readonly value="{{$bug->fixer->name}}" type="text" class="form-control" id="input02">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="input100" class="col-sm-2 control-label">bug状态</label>
                     <div class="col-sm-10">
-                        <select class="chosen-select chosen-transparent form-control" id="input100">
-                            <option @if($bug->status==2) selected="selected" @endif value="2">已修复bug</option>
-                            <option @if($bug->status==1) selected="selected" @endif value="1">重新激活bug</option>
-                            <option @if($bug->status==3) selected="selected" @endif value="3">关闭bug</option>
-                        </select>
+                        <input readonly value="@if($bug->status==2) 已修复 @elseif($bug->status==1) 激活 @else 已关闭 @endif" type="text" class="form-control" id="input02">
                     </div>
                 </div>
             </form>

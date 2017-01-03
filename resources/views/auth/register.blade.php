@@ -24,8 +24,8 @@
             <input type="password" name="password" placeholder="Password">
             <input type="password" name="password_confirmation" placeholder="PasswordConfirm">
 
-            <label><input type="radio" name="role" value="qa">测试</label>
-            <label><input type="radio" name="role" value="rd">开发</label>
+            <label><input class="radio" type="radio" name="role" value="qa">测试</label>
+            <label><input class="radio" type="radio" name="role" value="rd">开发</label>
 
             <div class="forgot">
                 <a href="#">forgot Password</a>

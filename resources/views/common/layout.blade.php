@@ -7,7 +7,7 @@
 
     <!-- Bootstrap -->
     <link href="{{asset('/assets/css/vendor/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    {{--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">--}}
     <link rel="stylesheet" href="{{asset('assets/css/vendor/animate/animate.css')}}">
     <link type="text/css" rel="stylesheet" media="all" href="{{asset('assets/js/vendor/mmenu/css/jquery.mmenu.all.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/js/vendor/videobackground/css/jquery.videobackground.css')}}">
@@ -42,8 +42,8 @@
 
             <!-- Branding -->
             <div class="navbar-header col-md-2">
-                <a class="navbar-brand" href="index.html">
-                    <strong>MIN</strong>IMAL
+                <a class="navbar-brand" href="/">
+                    <strong>木头</strong>疙瘩
                 </a>
                 <div class="sidebar-collapse">
                     <a href="#">
@@ -65,15 +65,15 @@
                 <!-- /Page refresh -->
 
                 <!-- Search -->
-                <div class="search" id="main-search">
+                {{--<div class="search" id="main-search">
                     <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
-                </div>
+                </div>--}}
                 <!-- Search end -->
 
                 <!-- Quick Actions -->
                 <ul class="nav navbar-nav quick-actions">
 
-                    <li class="dropdown divided">
+                    {{--<li class="dropdown divided">
 
                         <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
                             <i class="fa fa-tasks"></i>
@@ -285,14 +285,17 @@
                             <li><a href="#">Check all notifications <i class="fa fa-angle-right"></i></a></li>
                         </ul>
 
-                    </li>
+                    </li>--}}
 
                     <li class="dropdown divided user" id="current-user">
                         <div class="profile-photo">
                             <img src="{{asset('assets/images/profile-photo.jpg')}}" alt />
                         </div>
                         <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
-                            John Douey <i class="fa fa-caret-down"></i>
+                            {{Auth::user()->name}} <i class="fa fa-caret-down"></i>
+                        </a>
+                        <a class="options" href="#">
+                            角色：@role("QA") <strong>测试</strong> @else <strong>开发</strong> @endrole
                         </a>
 
                         <ul class="dropdown-menu arrow settings">
@@ -309,7 +312,7 @@
                                     <li><a href="#" class="bg-6"></a></li>
                                 </ul>
 
-                                <div class="form-group videobg-check">
+                                {{--<div class="form-group videobg-check">
                                     <label class="col-xs-8 control-label">Video BG</label>
                                     <div class="col-xs-4 control-label">
                                         <div class="onoffswitch greensea small">
@@ -320,13 +323,13 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
 
                             </li>
 
                             <li class="divider"></li>
 
-                            <li>
+                            {{--<li>
                                 <a href="#"><i class="fa fa-user"></i> Profile</a>
                             </li>
 
@@ -338,10 +341,10 @@
                                 <a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge badge-red" id="user-inbox">3</span></a>
                             </li>
 
-                            <li class="divider"></li>
+                            <li class="divider"></li>--}}
 
                             <li>
-                                <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="/auth/logout"><i class="fa fa-power-off"></i> Logout</a>
                             </li>
                         </ul>
                     </li>

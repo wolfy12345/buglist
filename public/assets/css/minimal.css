@@ -1,4 +1,5 @@
-@import url(http://fonts.useso.com/css?family=Ubuntu+Mono|Roboto:400,100,300,500,700,300italic|Roboto+Condensed:300,400,700|Roboto+Slab:400,700&subset=latin,latin-ext);
+/*@import url(http://fonts.useso.com/css?family=Ubuntu+Mono|Roboto:400,100,300,500,700,300italic|Roboto+Condensed:300,400,700|Roboto+Slab:400,700&subset=latin,latin-ext);*/
+@import url("/assets/css/usesofonts.css");
 /*****************************************/
 /************* MAIN SETTINGS *************/
 /*****************************************/
@@ -7897,7 +7898,7 @@ body #content .modal .modal-dialog .modal-content .input-group .form-control:not
         .pageheader .breadcrumbs ol.breadcrumb > li.active {
           color: rgba(0, 0, 0, 0.4); }
         .pageheader .breadcrumbs ol.breadcrumb > li + li:before {
-          content: "\f105";
+          content: ">";
           font-family: "FontAwesome";
           color: rgba(255, 255, 255, 0.6); }
 
@@ -7915,7 +7916,7 @@ ol.breadcrumb {
     font-size: 12px;
     font-weight: 500; }
     ol.breadcrumb > li + li:before {
-      content: "\f105";
+      content: ">";
       font-family: "FontAwesome"; }
   ol.breadcrumb.transparent-black {
     background-color: rgba(0, 0, 0, 0.3); }

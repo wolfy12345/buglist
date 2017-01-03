@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 
 use App\User;
@@ -29,14 +30,17 @@ class BugController extends Controller
         } else {
         }*/
 
-        $bugs = Bug::get();
+        $bugs = Bug::orderBy('id', 'desc')->get();
+        foreach($bugs as $bug){
+        }
 
         return view('bug.index', ['bugs' => $bugs]);
     }
 
     public function getNew()
     {
-        $users = User::get();
+        $role = Role::where('name', 'RD')->first();
+        $users = $role->users()->get();
 
         return view('bug.new', ['users' => $users]);
     }
@@ -111,7 +115,8 @@ class BugController extends Controller
      */
     public function getEdit($id)
     {
-        $users = User::get();
+        $role = Role::where('name', 'RD')->first();
+        $users = $role->users()->get();
         $bug = Bug::find($id);
 
         return view('bug.edit', ['users' => $users, 'bug' => $bug]);
@@ -131,8 +136,15 @@ class BugController extends Controller
 
         $bug->url = $request->url;
         $bug->title = $request->title;
-        $bug->description = $request->description;
+//        $bug->description = $request->description;
+        $bug->status = $request->status;
         $bug->fixer_user_id = $request->fixer_user_id;
+
+        $desctiption = trim($request->description);
+        $desc = trim(rtrim($desctiption, "--------------------------------我是分割线，不用管我，新内容继续往下添加即可-----------------------------------"));
+        if ($desc != $bug->description) {
+            $bug->description = $desctiption;
+        }
 
         if ($request->hasFile('images')) {
             $path = './Uploads/bugs/' . date('Ymd');
